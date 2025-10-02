@@ -1,7 +1,8 @@
 {
-  "name": "shicopic-enhanced",
+  "name": "shicopic-netlify-functions",
   "version": "1.0.0",
   "dependencies": {
-    "node-fetch": "^2.6.12"
+    "node-fetch": "^2.6.1"
   }
 }
+    سپس در ترمینال `npm install` را اجرا کنید.

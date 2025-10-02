@@ -1,0 +1,4 @@
+[functions]
+  directory = "netlify/functions/"
+  node_bundler = "esbuild"
+4.  **جایگزینی `index.html`**: فایل اصلی `index.html` پروژه خود را با کدی که در بالا قرار دادم جایگزین کنید. تنها تغییر مهم در این فایل، به‌روزرسانی تابع `enhancePromptWithAI` است.
