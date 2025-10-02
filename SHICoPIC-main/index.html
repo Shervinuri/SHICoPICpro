@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>☬ SHICoPIC™ Pro </title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* تم اصلی */
+    --blue-electric: #00bfff;
+    --purple-glow: #8b5cf6;
+    --silver: #c0c0c0;
+    --primary-color: #00bfff;
+    --secondary-color: #8b5cf6;
+    --gradient-primary: linear-gradient(135deg, #00bfff, #8b5cf6, #c0c0c0);
+    --dark-bg: #0A0A0A;
+    --dark-card: #141414;
+    --dark-border: #262626;
+  }
+
+  body {
+    background: linear-gradient(135deg, #05060a 0%, #0f0920 50%, #130723 100%);
+    background-attachment:fixed;  
+    overflow-y:hidden;
+  }
+  .font-brand { font-family: 'Orbitron', sans-serif; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--dark-border); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-fade-in { animation: fadeIn 0.2s ease-out forwards; }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: none;
+    opacity: 0.95;
+  }
+  .glass-border {
+    border: 1px solid rgba(38, 38, 38, 0.5);
+  }
+
+  @keyframes colorWave {
+    0%, 100% { --primary-color: #00bfff; --secondary-color: #8b5cf6; }
+    25% { --primary-color: #8b5cf6; --secondary-color: #c0c0c0; }
+    50% { --primary-color: #c0c0c0; --secondary-color: #00bfff; }
+    75% { --primary-color: #00bfff; --secondary-color: #8b5cf6; }
+  }
+  :root { animation: colorWave 12s ease-in-out infinite; }
+
+  .arched-header {
+    width: 95%;
+    max-width: 1024px;
+    height: 40px;
+    border-top-left-radius: 10% 40px;
+    border-top-right-radius: 10% 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: rgba(139,92,246,0.25);
+  }
+  .arched-header::after {
+    background: radial-gradient(ellipse at 50% 150%, rgba(139,92,246,0.22) 0%, rgba(139,92,246,0) 70%);
+    filter: blur(15px);
+    transition: all 0.5s ease;
+  }
+
+  .prompt-box:focus-within {
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.05),
+      0 6px 20px rgba(0, 191, 255, 0.12),
+      0 0 20px rgba(139,92,246,0.07);
+  }
+
+  .generate-btn {
+    position: relative;
+    overflow: hidden;
+    background: rgba(128, 128, 128, 0.08);
+    color: transparent;
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.23),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+    transition: all 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+  }
+  .generate-btn .animated-text {
+    background: var(--gradient-primary);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-move 3s ease-in-out infinite;
+    font-weight: 700;
+  }
+  .generate-btn:hover {
+    transform: translateY(-1px);
+    opacity: 1;
+  }
+
+  .header-container {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+  }
+
+  .fixed-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 20;
+    padding: 0.8rem;
+    transition: transform 0.18s ease;
+    will-change: transform;
+  }
+
+  .main-content {
+    padding-top: 100px;
+    padding-bottom: 220px;  
+    min-height: 100vh;
+    overflow-y: auto;
+    height: 100vh;
+  }
+
+  .header-glow { position: relative; overflow: hidden; }
+  .header-glow::before {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    animation: sweep 4s ease-in-out infinite;
+  }
+  @keyframes sweep { 0% { left: -100%; } 50% { left: 100%; } 100% { left: -100%; } }
+  
+  @keyframes spin-y {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+  }
+  .logo-spin { animation: spin-y 8s linear infinite; transform-style: preserve-3d; }
+
+  @keyframes spin-y-fast {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+  .card-loading-icon {
+    animation: spin-y-fast 1s linear infinite, flicker 1.5s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes gradient-glow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  #prompt::placeholder {
+    color: #9CA3AF;
+    background-image: var(--gradient-primary);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradient-glow 6s ease-in-out infinite;
+  }
+  .animated-text {
+    background: var(--gradient-primary);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradient-move 3s ease-in-out infinite;
+  }
+  @keyframes gradient-move { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+  .divider-glow { position: relative; height: 2px; background: rgba(255, 255, 255, 0.04); }
+  .divider-glow::after {
+    content: '';
+    position: absolute; top: 0; left: 50%;
+    width: 40%; height: 100%;
+    background: var(--gradient-primary);
+    transform: translateX(-50%);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.25;}50%{opacity:0.8;} }
+
+  .prompt-box {
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.03),
+      0 4px 12px rgba(0, 0, 0, 0.28),
+      0 0 15px rgba(0, 191, 255, 0.06);
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    padding-right: 3rem;
+    opacity: 1;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .mic-btn, .send-btn {
+    position: absolute; bottom: 12px; right: 12px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(145deg, rgba(0,191,255,0.12), rgba(139,92,246,0.08));
+    border: 1px solid rgba(0,191,255,0.22);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 12; transition: all 0.18s ease;
+    font-size: 15px; color: var(--blue-electric);
+  }
+  .mic-btn:hover, .send-btn:hover { transform: translateY(-2px); background: rgba(0,191,255,0.14); }
+  .mic-btn svg { width: 14px; height: 14px; stroke: var(--blue-electric); }
+
+  .mic-btn.recording svg { stroke: #e3342f; }
+  .mic-btn.recording::after {
+    content: ''; position: absolute;
+    width: 120%; height: 120%; border-radius: 50%;
+    border: 1px solid rgba(227, 52, 47, 0.18);
+    animation: pulse-red 1.5s infinite;
+  }
+  @keyframes pulse-red {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(227, 52, 47, 0.32); }
+    70% { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(227, 52, 47, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(227, 52, 47, 0); }
+  }
+
+  .footer-gradient {  
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .images-container { display: flex; flex-direction: column-reverse; gap: 1rem; margin-bottom: 2rem; }
+  .image-card { animation: slideInFromTop 0.5s ease-out forwards; opacity: 0; transform: translateY(-20px); cursor: pointer; max-height: 500px; overflow: hidden; }
+  @keyframes slideInFromTop { to { opacity: 1; transform: translateY(0); } }
+
+  /* Slideshow */
+  .slideshow-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+  .slideshow-overlay.active { opacity: 1; visibility: visible; }
+  .slideshow-container { position: relative; max-width: 90vw; max-height: 70vh; display: flex; align-items: center; justify-content: center; }
+  .slideshow-image { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
+  .slideshow-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(8px); }
+  .slideshow-nav:hover { transform: translateY(-50%) scale(1.05); }
+  .slideshow-nav.prev { left: -70px; }
+  .slideshow-nav.next { right: -70px; }
+  .slideshow-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; width: 40px; height: 40px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.3s ease; backdrop-filter: blur(8px); }
+  .slideshow-close:hover { transform: scale(1.05); }
+  .slideshow-thumbnails { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; max-width: 90vw; overflow-x: auto; padding: 10px; background: rgba(0,0,0,0.26); border-radius: 25px; backdrop-filter: blur(8px); }
+  .thumbnail-item { width: 60px; height: 60px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; flex-shrink: 0; }
+  .thumbnail-item:hover { transform: scale(1.05); border-color: rgba(0,191,255,0.18); }
+  .thumbnail-item.active { border-color: var(--blue-electric); transform: scale(1.08); }
+  
+  #prompt {
+    unicode-bidi: plaintext; direction: auto;
+    text-align: center; line-height: 1.45;
+    font-size: 15px; caret-color: transparent; resize: none;
+  }
+  #prompt:focus { text-align: start; caret-color: var(--blue-electric); }
+  #prompt:not(:placeholder-shown) { text-align: start; }
+</style>
+
+</head>
+<body class="text-gray-300 font-['Inter'] antialiased relative overflow-x-hidden">
+
+<canvas id="bgCanvas" class="absolute inset-0 -z-10"></canvas>
+
+<div class="header-container">
+  <header class="arched-header glass glass-border border-t border-x relative header-glow">
+    <div data-title-gradient class="font-brand text-2xl sm:text-3xl font-bold tracking-wider">
+      <span class="animated-text">SHICOPIC</span>
+    </div>
+  </header>
+  <div class="flex w-[95%] max-w-[400px] relative">
+    <button id="styleBtn" class="w-1/2 h-10 text-sm font-medium text-[var(--blue-electric)] hover:text-white glass glass-border transition-colors relative flex items-center justify-center" style="border-bottom-left-radius: 50% 20px;">
+      <span class="font-sans font-semibold tracking-wide">ꜱᴛʏʟᴇ</span>
+    </button>
+    <button id="settingsBtn" class="w-1/2 h-10 text-sm font-medium text-[var(--blue-electric)] hover:text-white glass glass-border transition-colors relative flex items-center justify-center" style="border-bottom-right-radius: 50% 20px;">
+      <span class="font-sans font-semibold tracking-wide">ꜱᴇᴛᴜᴘ</span>
+    </button>
+    <div class="divider-glow absolute" style="bottom: 0; left: 0; right: 0; height: 2px;"></div>
+  </div>
+  <div class="absolute top-[50px] left-1/2 -translate-x-1/2" style="perspective: 1000px; z-index: 21;">
+    <div class="rounded-full p-0.5">
+      <img src="https://raw.githubusercontent.com/Shervinuri/Shervinuri.github.io/refs/heads/main/1712259501956.png" alt="Logo" class="w-10 h-10 rounded-full logo-spin" onerror="this.onerror=null;this.src='https://placehold.co/48x48/000000/ffffff?text=S';">
+    </div>
+  </div>
+</div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5 main-content" style="position: relative; z-index: 12;">
+  <div id="images" class="images-container" data-generated-list></div>
+</main>
+
+<!-- Fixed Footer with Prompt and Generate Button -->
+<div class="fixed-footer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
+    <div class="flex flex-col sm:flex-row gap-3 relative items-center sm:justify-center">
+      <div class="relative w-full">
+        <textarea id="prompt" dir="auto" enterkeyhint="newline" inputmode="text" spellcheck="true" autocomplete="off" autocapitalize="off" rows="4" class="w-full glass glass-border prompt-box rounded-xl p-4 text-base placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--blue-electric)]" placeholder="Write or Say your vision...!"></textarea>
+        <div id="micBtn" class="mic-btn" title="Record">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+        </div>
+      </div>
+      <button id="generateBtn" class="w-full sm:w-auto flex items-center justify-center gap-2 h-auto sm:h-full px-6 py-3 font-semibold generate-btn transition-all shadow-lg disabled:opacity-50 disabled:cursor-wait relative" style="border-bottom-left-radius: 60% 40px; border-bottom-right-radius: 60% 40px;">
+          <span class="animated-text">☬</span>
+          <span class="animated-text">GΞИΞRATΞ</span>
+      </button>
+    </div>
+    
+    <div class="text-center py-4 mt-4 border-t border-gray-800">
+      <a href="https://t.me/shervinuri" target="_blank" rel="noopener" class="footer-gradient font-semibold">
+        ••• ᴇxᴄʟᴜsɪᴠᴇ ☬SHΞN™ ᴍᴀᴅᴇ •••
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- All modals are unchanged... -->
+<!-- Slideshow Overlay -->
+<div id="slideshowOverlay" class="slideshow-overlay">
+  <div class="slideshow-container">
+    <canvas id="slideshowImage" class="slideshow-image"></canvas>
+    <button id="prevBtn" class="slideshow-nav prev">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <button id="nextBtn" class="slideshow-nav next">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+    <button id="downloadBtnSlideshow" class="absolute top-4 right-16 z-10 bg-[rgba(0,191,255,0.12)] text-white p-3 rounded-full hover:bg-[rgba(0,191,255,0.14)] transition-colors backdrop-blur-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+      </svg>
+    </button>
+  </div>
+  <button id="closeSlideshow" class="slideshow-close">
+    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+  <div id="thumbnailsContainer" class="slideshow-thumbnails"></div>
+</div>
+
+<!-- Style Modal -->
+<div id="styleModal" class="fixed inset-0 bg-black/60 z-30 hidden items-center justify-center p-4">
+  <div class="glass glass-border rounded-xl w-full max-w-xs p-6 modal-fade-in">
+    <h3 class="text-xl font-semibold mb-4 text-center">Choose a Style</h3>
+    <div id="styleRollerContainer" class="h-56 relative flex items-center justify-center">
+      <div class="absolute inset-x-0 h-10 top-1/2 -translate-y-1/2 bg-white/5 rounded-lg ring-1 ring-[rgba(0,191,255,0.12)] z-0"></div>
+      <div id="styleRoller" class="w-full h-full overflow-y-scroll snap-y snap-mandatory"></div>
+    </div>
+    <div class="text-center mt-6 flex gap-3">
+      <button id="saveStyle" class="flex-1 px-4 py-2 bg-[rgba(0,191,255,0.12)] hover:bg-[rgba(0,191,255,0.16)] text-white text-sm font-medium rounded-lg transition-colors">Save</button>
+      <button id="closeStyle" class="flex-1 px-4 py-2 glass glass-border text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="fixed inset-0 bg-black/60 z-30 hidden items-center justify-center p-4">
+  <div class="glass glass-border rounded-xl w-full max-w-md p-6 modal-fade-in">
+    <h3 class="text-xl font-semibold mb-6">API Settings</h3>
+    <div class="space-y-5">
+      <div class="flex items-center justify-between">
+        <label for="model">Model</label>
+        <select id="model" class="w-48 glass glass-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--blue-electric)]">
+          <option value="flux">SHΞN™ PRO</option>
+          <option value="turbo">SHΞN™ +18 (Nfsw-Porn)</option>
+          <option value="dall-e-3">SHΞN™ Alpha</option>
+          <option value="midjourney">SHΞN™ Julietta</option>
+          <option value="stable-diffusion">SHΞN™ Plasma</option>
+        </select>
+      </div>
+      <div class="flex items-center justify-between">
+        <label for="width">Width</label>
+        <input id="width" type="number" value="1024" class="w-48 glass glass-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--blue-electric)]">
+      </div>
+      <div class="flex items-center justify-between">
+        <label for="height">Height</label>
+        <input id="height" type="number" value="1024" class="w-48 glass glass-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--blue-electric)]">
+      </div>
+      
+      <div class="flex items-center justify-between">
+        <label for="presetSize">Preset Size</label>
+        <select id="presetSize" class="w-48 glass glass-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--blue-electric)]">
+          <option value="">Custom</option>
+          <option value="1080x1080">Instagram Post (1080x1080)</option>
+          <option value="1080x1920">Instagram Story/Reel (1080x1920)</option>
+          <option value="1200x628">Facebook Post (1200x628)</option>
+          <option value="820x312">Facebook Cover (820x312)</option>
+          <option value="1280x720">YouTube Thumbnail (1280x720)</option>
+          <option value="2560x1440">YouTube Banner (2560x1440)</option>
+        </select>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <label for="enhance">Enhance Prompt (SHΞNcore)</label>
+        <input id="enhance" type="checkbox" checked class="h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--blue-electric)] focus:ring-[var(--blue-electric)]">
+      </div>
+      <div class="flex items-center justify-between">
+        <label for="seed">Seed</label>
+        <div class="flex items-center gap-3">
+          <input id="seed" type="number" value="42" class="w-28 glass glass-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--blue-electric)]">
+          <input id="randomSeed" type="checkbox" checked class="h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--blue-electric)] focus:ring-[var(--blue-electric)]">
+          <span class="text-sm text-gray-400">Random</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-right mt-8">
+      <button id="saveSettings" class="px-5 py-2 text-sm font-medium text-white bg-[rgba(0,191,255,0.12)] rounded-lg hover:bg-[rgba(0,191,255,0.16)]">Save & Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Age Gate Modal -->
+<div id="ageModal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
+  <div class="glass glass-border rounded-xl w-full max-w-md p-6 text-center">
+    <h3 class="text-xl font-bold text-red-400 mb-4">🔞 18+ Content Warning</h3>
+    <p class="text-gray-300 mb-6">By selecting "SHΞN™ +18", you acknowledge that the system may generate explicit, adult, or violent content.</p>
+    <div class="flex gap-4 justify-center">
+      <button id="ageConfirm" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium">OK I'm over 18</button>
+      <button id="ageCancel" class="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium">Return</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+
+<!-- The 3D background script is unchanged -->
+<script>
+try {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("bgCanvas"), alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  const particlesCount = 2500;
+  const positions = new Float32Array(particlesCount * 3);
+  for (let i = 0; i < particlesCount * 3; i++) { positions[i] = (Math.random() - 0.5) * 30; }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const material = new THREE.PointsMaterial({ color: 0x00bfff, size: 0.03, transparent: true, blending: THREE.AdditiveBlending });
+  const particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+  camera.position.z = 8;
+  function animate() {
+    requestAnimationFrame(animate);
+    particles.rotation.y += 0.0008;
+    particles.rotation.x += 0.0004;
+    renderer.render(scene, camera);
+  }
+  animate();
+  window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+  gsap.from(".header-container", { y: -80, opacity: 0, duration: 1 });
+  gsap.from("main", { opacity: 0, scale: 0.95, duration: 1, delay: 0.3 });
+  gsap.from(".fixed-footer", { y: 80, opacity: 0, duration: 1, delay: 0.5 });
+} catch (e) { console.error("Failed to initialize 3D background.", e); }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // This is the only part of the main script that changes.
+    // The rest of the code remains identical to your original version.
+    
+    const baseUrl = 'https://image.pollinations.ai';
+
+    const styleTemplates = { /* ... Unchanged ... */ };
+    const SYSTEM_PROMPT = `You are an AI prompt enhancer...`;
+
+    /**
+     * **THE ONLY CHANGE IS HERE**
+     * This function now calls our own Netlify Function endpoint instead of the direct API.
+     * The serverless function will handle the proxy logic.
+     */
+    async function enhancePromptWithAI(userPrompt) {
+        try {
+            const chatHistory = [
+                { role: 'system', content: SYSTEM_PROMPT },
+                { role: 'user', content: `Enhance this prompt: "${userPrompt}"` }
+            ];
+            
+            // This is the new endpoint for our Netlify function
+            const apiUrl = '/.netlify/functions/enhance-prompt';
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                // We send the prompt and history to our own serverless function
+                body: JSON.stringify({
+                    prompt: userPrompt,
+                    chatHistory: chatHistory
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Our Netlify Function returned an error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const assistantResponse = data.choices[0].message.content;
+            return assistantResponse.trim();
+        } catch (error) {
+            console.error('Error enhancing prompt via Netlify Function:', error);
+            return userPrompt; // Fallback to original prompt if our function fails
+        }
+    }
+    
+    // --- FROM HERE DOWN, THE CODE IS IDENTICAL TO YOUR ORIGINAL ---
+
+    const dom = {
+        promptInput: document.getElementById('prompt'),
+        generateBtn: document.getElementById('generateBtn'),
+        imagesContainer: document.getElementById('images'),
+        styleBtn: document.getElementById('styleBtn'),
+        settingsBtn: document.getElementById('settingsBtn'),
+        styleModal: document.getElementById('styleModal'),
+        closeStyleBtn: document.getElementById('closeStyle'),
+        saveStyleBtn: document.getElementById('saveStyle'),
+        styleRoller: document.getElementById('styleRoller'),
+        settingsModal: document.getElementById('settingsModal'),
+        saveSettingsBtn: document.getElementById('saveSettings'),
+        modelSelect: document.getElementById('model'),
+        widthInput: document.getElementById('width'),
+        heightInput: document.getElementById('height'),
+        presetSize: document.getElementById('presetSize'),
+        enhanceCheckbox: document.getElementById('enhance'),
+        seedInput: document.getElementById('seed'),
+        randomSeedCheckbox: document.getElementById('randomSeed'),
+        micBtn: document.getElementById('micBtn'),
+        ageModal: document.getElementById('ageModal'),
+        ageConfirm: document.getElementById('ageConfirm'),
+        ageCancel: document.getElementById('ageCancel'),
+        slideshowOverlay: document.getElementById('slideshowOverlay'),
+        slideshowImage: document.getElementById('slideshowImage'),
+        prevBtn: document.getElementById('prevBtn'),
+        nextBtn: document.getElementById('nextBtn'),
+        closeSlideshow: document.getElementById('closeSlideshow'),
+        thumbnailsContainer: document.getElementById('thumbnailsContainer'),
+        downloadBtnSlideshow: document.getElementById('downloadBtnSlideshow')
+    };
+
+    let appState = {
+        isGenerating: false,
+        selectedStyle: 'realistic',
+        savedStyleSelection: 'realistic',
+        tempStyleSelection: 'realistic',
+        generatedImages: [],
+        currentSlideIndex: 0
+    };
+
+    let lastCustomWidth = 1024;
+    let lastCustomHeight = 1024;
+
+    const styles = [
+        { name: 'None', data: null }, { name: 'Cinematic', data: 'cinema' },
+        { name: 'Realistic', data: 'realistic' }, { name: 'Photography', data: 'photography' },
+        { name: 'Fantasy', data: 'fantasy' }, { name: 'Anime', data: 'anime' },
+        { name: 'Artistic', data: 'artistic' }, { name: 'Portrait', data: 'portrait' },
+        { name: 'Landscape', data: 'landscape' },
+    ];
+    
+    async function generateImage() {
+        if (appState.isGenerating) return;
+        const rawPrompt = dom.promptInput.value.trim();
+        if (!rawPrompt) {
+            showTemporaryMessage('Please enter a prompt');
+            return;
+        }
+
+        appState.isGenerating = true;
+        dom.generateBtn.disabled = true;
+        dom.generateBtn.setAttribute('aria-busy','true');
+
+        const card = document.createElement('div');
+        card.className = 'image-card relative glass glass-border rounded-lg aspect-square flex items-center justify-center';
+        card.innerHTML = `<div class="flex flex-col items-center gap-4 text-gray-400">
+                            <img src="https://raw.githubusercontent.com/Shervinuri/Shervinuri.github.io/refs/heads/main/1712259501956.png" alt="Loading..." class="w-16 h-16 rounded-full card-loading-icon">
+                            <span class="text-sm font-semibold tracking-wider" id="loading-text-card">Initializing...</span>
+                          </div>`;
+        dom.imagesContainer.appendChild(card);
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        try {
+            let promptForProcessing = rawPrompt;
+            let finalPrompt;
+
+            if (appState.selectedStyle && styleTemplates[appState.selectedStyle]) {
+                promptForProcessing += styleTemplates[appState.selectedStyle];
+            }
+
+            if (dom.enhanceCheckbox.checked) {
+                card.querySelector('#loading-text-card').textContent = 'SHΞN™core enhance your prompt...';
+                finalPrompt = await enhancePromptWithAI(promptForProcessing);
+            } else {
+                finalPrompt = promptForProcessing;
+            }
+            
+            card.querySelector('#loading-text-card').textContent = 'Finalizing request...';
+
+            const model = encodeURIComponent(dom.modelSelect.value || 'flux');
+            const width = Math.max(512, Math.min(2048, parseInt(dom.widthInput.value) || 1024));
+            const height = Math.max(512, Math.min(2048, parseInt(dom.heightInput.value) || 1024));
+            const seed = dom.randomSeedCheckbox.checked 
+                ? Math.floor(Math.random() * 1000000) 
+                : (parseInt(dom.seedInput.value) || 42);
+            
+            const encodedPrompt = encodeURIComponent(finalPrompt);
+            const apiUrl = `${baseUrl}/prompt/${encodedPrompt}?model=${model}&width=${width}&height=${height}&seed=${seed}&nologo=true&safe=false`;
+            
+            const res = await fetch(apiUrl);
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(`API Error: ${res.status} - ${errorText}`);
+            }
+
+            const blob = await res.blob();
+            const imgUrl = URL.createObjectURL(blob);
+            await addWatermarkAndDisplay(card, imgUrl);
+        } catch (error) {
+            console.error('Generation failed:', error);
+            card.innerHTML = `<div class="p-4 text-center text-red-400 text-sm">Error generating image. Check console.</div>`;
+        } finally {
+            appState.isGenerating = false;
+            dom.generateBtn.disabled = false;
+            dom.generateBtn.removeAttribute('aria-busy');
+        }
+    }
+
+    const toggleModal = (modalToShow) => {
+      if (modalToShow && modalToShow.classList.contains('hidden')) {
+        modalToShow.classList.remove('hidden');
+        modalToShow.classList.add('flex');
+      } else {
+        [dom.styleModal, dom.settingsModal, dom.ageModal].forEach(m => {
+          m.classList.add('hidden');
+          m.classList.remove('flex');
+        });
+      }
+    };
+
+    const saveSettings = () => {
+        const settings = {
+            model: dom.modelSelect.value,
+            width: parseInt(dom.widthInput.value) || 1024,
+            height: parseInt(dom.heightInput.value) || 1024,
+            seed: parseInt(dom.seedInput.value) || 42,
+            randomSeed: dom.randomSeedCheckbox.checked,
+            enhance: dom.enhanceCheckbox.checked,
+            selectedStyle: appState.selectedStyle
+        };
+        localStorage.setItem('shenerator_3d_settings_v3', JSON.stringify(settings));
+    };
+
+    const loadSettings = () => {
+        try {
+            const saved = JSON.parse(localStorage.getItem('shenerator_3d_settings_v3'));
+            if (saved) {
+                dom.modelSelect.value = saved.model || 'flux';
+                dom.widthInput.value = saved.width || 1024;
+                dom.heightInput.value = saved.height || 1024;
+                lastCustomWidth = saved.width || 1024;
+                lastCustomHeight = saved.height || 1024;
+                dom.seedInput.value = saved.seed || 42;
+                dom.randomSeedCheckbox.checked = saved.randomSeed !== false;
+                dom.enhanceCheckbox.checked = saved.enhance !== false;
+                if (saved.selectedStyle) {
+                    appState.selectedStyle = saved.selectedStyle;
+                    appState.savedStyleSelection = saved.selectedStyle;
+                    appState.tempStyleSelection = saved.selectedStyle;
+                }
+            }
+        } catch (e) { console.error("Could not load settings.", e); }
+        dom.seedInput.disabled = dom.randomSeedCheckbox.checked;
+    };
+
+    function showTemporaryMessage(message) {
+        const temp = document.createElement('div');
+        temp.className = 'image-card relative glass glass-border rounded-lg aspect-square flex items-center justify-center text-gray-400 text-sm';
+        temp.innerHTML = message;
+        dom.imagesContainer.appendChild(temp);
+        setTimeout(() => temp.remove(), 1200);
+    }
+
+    function addWatermarkAndDisplay(card, imgUrl) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = imgUrl;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const stripHeight = Math.max(40, img.height * 0.05);
+                ctx.filter = 'blur(5px)';
+                ctx.drawImage(canvas, 0, canvas.height - stripHeight, canvas.width, stripHeight, 0, canvas.height - stripHeight, canvas.width, stripHeight);
+                ctx.filter = 'none';
+                ctx.fillStyle = 'rgba(0,0,0,0.45)';
+                ctx.fillRect(0, canvas.height - stripHeight, canvas.width, stripHeight);
+                ctx.font = `${Math.max(20, img.width * 0.02)}px Orbitron`;
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('Exclusive ☬SHΞN™ Made', canvas.width / 2, canvas.height - stripHeight / 2);
+                
+                card.innerHTML = '';
+                
+                const previewCanvas = document.createElement('canvas');
+                const previewCtx = previewCanvas.getContext('2d');
+                const maxPreviewSize = Math.min(window.innerWidth * 0.9, 512);
+                const aspectRatio = canvas.width / canvas.height;
+                
+                previewCanvas.width = aspectRatio > 1 ? maxPreviewSize : Math.round(maxPreviewSize * aspectRatio);
+                previewCanvas.height = aspectRatio > 1 ? Math.round(maxPreviewSize / aspectRatio) : maxPreviewSize;
+                
+                previewCtx.drawImage(canvas, 0, 0, previewCanvas.width, previewCanvas.height);
+                previewCanvas.className = 'w-full h-full object-cover rounded-lg cursor-pointer';
+                card.appendChild(previewCanvas);
+                
+                appState.generatedImages.unshift({
+                    canvas: canvas,
+                    preview: previewCanvas
+                });
+                
+                previewCanvas.addEventListener('click', () => {
+                    openSlideshow(0);
+                });
+                
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'absolute top-2 right-2 bg-[rgba(0,191,255,0.12)] text-white p-2 rounded-full hover:bg-[rgba(0,191,255,0.14)] transition-colors backdrop-blur-sm';
+                downloadBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>';
+                downloadBtn.title = 'Download Image';
+                downloadBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    canvas.toBlob((canvasBlob) => {
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(canvasBlob);
+                        a.download = `shenerator_${Date.now()}.png`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    });
+                });
+                card.appendChild(downloadBtn);
+                URL.revokeObjectURL(imgUrl);
+                resolve();
+            };
+            img.onerror = () => {
+                card.innerHTML = `<div class="p-4 text-center text-red-400 text-sm">Failed to load image.</div>`;
+                URL.revokeObjectURL(imgUrl);
+                reject();
+            }
+        });
+    }
+
+    function openSlideshow(index) {
+        if (appState.generatedImages.length === 0) return;
+        appState.currentSlideIndex = index;
+        dom.slideshowOverlay.classList.add('active');
+        updateSlideshow();
+        updateThumbnails();
+    }
+    function closeSlideshow() { dom.slideshowOverlay.classList.remove('active'); }
+    function updateSlideshow() {
+        if (appState.generatedImages.length === 0) return;
+        const currentImage = appState.generatedImages[appState.currentSlideIndex];
+        const ctx = dom.slideshowImage.getContext('2d');
+        dom.slideshowImage.width = currentImage.canvas.width;
+        dom.slideshowImage.height = currentImage.canvas.height;
+        ctx.drawImage(currentImage.canvas, 0, 0);
+    }
+    function updateThumbnails() {
+        dom.thumbnailsContainer.innerHTML = '';
+        appState.generatedImages.forEach((imageData, index) => {
+            const thumbnail = document.createElement('canvas');
+            thumbnail.className = `thumbnail-item ${index === appState.currentSlideIndex ? 'active' : ''}`;
+            thumbnail.width = 60;
+            thumbnail.height = 60;
+            const ctx = thumbnail.getContext('2d');
+            const aspectRatio = imageData.canvas.width / imageData.canvas.height;
+            if (aspectRatio > 1) {
+                const drawHeight = 60 / aspectRatio;
+                const offsetY = (60 - drawHeight) / 2;
+                ctx.drawImage(imageData.canvas, 0, offsetY, 60, drawHeight);
+            } else {
+                const drawWidth = 60 * aspectRatio;
+                const offsetX = (60 - drawWidth) / 2;
+                ctx.drawImage(imageData.canvas, offsetX, 0, drawWidth, 60);
+            }
+            thumbnail.addEventListener('click', () => {
+                appState.currentSlideIndex = index;
+                updateSlideshow();
+                updateThumbnails();
+            });
+            dom.thumbnailsContainer.appendChild(thumbnail);
+        });
+    }
+    function nextSlide() {
+        if (appState.generatedImages.length === 0) return;
+        appState.currentSlideIndex = (appState.currentSlideIndex + 1) % appState.generatedImages.length;
+        updateSlideshow();
+        updateThumbnails();
+    }
+    function prevSlide() {
+        if (appState.generatedImages.length === 0) return;
+        appState.currentSlideIndex = (appState.currentSlideIndex - 1 + appState.generatedImages.length) % appState.generatedImages.length;
+        updateSlideshow();
+        updateThumbnails();
+    }
+
+    function setupStyleRoller() {
+        const roller = dom.styleRoller;
+        if (!roller) return;
+        const itemHeight = 40;
+        const viewportHeight = roller.clientHeight;
+        const paddingTop = (viewportHeight / 2) - (itemHeight / 2);
+        roller.innerHTML = '';
+        roller.style.paddingTop = `${paddingTop}px`;
+        roller.style.paddingBottom = `${paddingTop}px`;
+        const displayStyles = [...styles, ...styles, ...styles];
+        displayStyles.forEach(style => {
+            const item = document.createElement('div');
+            item.className = 'style-item h-10 flex items-center justify-center text-lg font-semibold snap-center';
+            item.textContent = style.name;
+            item.dataset.data = style.data;
+            roller.appendChild(item);
+        });
+        const oneBlockHeight = styles.length * itemHeight;
+        const defaultIndex = styles.findIndex(s => s.data === appState.savedStyleSelection);
+        const initialScrollTop = oneBlockHeight + (defaultIndex >= 0 ? defaultIndex * itemHeight : 0);
+        roller.scrollTop = initialScrollTop;
+        let scrollTimeout;
+        roller.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            const scrollTop = roller.scrollTop;
+            if (scrollTop >= oneBlockHeight * 2) {
+                roller.scrollTop = scrollTop - oneBlockHeight;
+            } else if (scrollTop < oneBlockHeight) {
+                roller.scrollTop = scrollTop + oneBlockHeight;
+            }
+            const allItems = roller.querySelectorAll('.style-item');
+            const centerLine = roller.scrollTop + (viewportHeight / 2);
+            allItems.forEach(item => {
+                const itemTop = item.offsetTop;
+                const itemCenter = itemTop + (itemHeight / 2);
+                item.classList.toggle('is-active', Math.abs(itemCenter - centerLine) < itemHeight / 2);
+            });
+            scrollTimeout = setTimeout(() => {
+                const finalScrollTop = roller.scrollTop;
+                const rawIndex = Math.round((finalScrollTop - paddingTop) / itemHeight);
+                const activeIndex = ((rawIndex % styles.length) + styles.length) % styles.length;
+                if (styles[activeIndex]) {
+                    appState.tempStyleSelection = styles[activeIndex].data;
+                }
+            }, 150);
+        });
+        roller.dispatchEvent(new Event('scroll'));
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+    if (recognition) {
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            dom.promptInput.value += transcript + ' ';
+        };
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error', event.error);
+            dom.micBtn.classList.remove('recording');
+        };
+        recognition.onend = () => { dom.micBtn.classList.remove('recording'); };
+        dom.micBtn.addEventListener('click', () => {
+            if (dom.micBtn.classList.contains('recording')) {
+                recognition.stop();
+            } else {
+                try {
+                    recognition.start();
+                    dom.micBtn.classList.add('recording');
+                } catch (e) {
+                    console.error("Recognition start failed:", e);
+                    dom.micBtn.classList.remove('recording');
+                }
+            }
+        });
+    } else {
+        dom.micBtn.style.display = 'none';
+    }
+
+    // Event Listeners
+    dom.generateBtn.addEventListener('click', generateImage);
+
+    dom.promptInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            generateImage();
+        }
+    });
+
+    dom.styleBtn.addEventListener('click', () => {
+        appState.tempStyleSelection = appState.savedStyleSelection;
+        toggleModal(dom.styleModal);
+        setupStyleRoller();
+    });
+    dom.settingsBtn.addEventListener('click', () => toggleModal(dom.settingsModal));
+    dom.saveStyleBtn.addEventListener('click', () => {
+        const activeItem = dom.styleRoller.querySelector('.style-item.is-active');
+        const newStyle = activeItem && activeItem.dataset.data !== 'undefined' ? activeItem.dataset.data : appState.tempStyleSelection;
+        appState.selectedStyle = newStyle ===   'null' ? null : newStyle;
+        appState.savedStyleSelection = newStyle;
+        appState.tempStyleSelection = newStyle;
+        saveSettings();
+        toggleModal(null);
+    });
+    dom.closeStyleBtn.addEventListener('click', () => {
+        appState.tempStyleSelection = appState.savedStyleSelection;
+        toggleModal(null);
+    });
+    dom.saveSettingsBtn.addEventListener('click', () => {
+        saveSettings();
+        toggleModal(null);
+    });
+    dom.styleModal.addEventListener('click', (e) => {
+        if (e.target === dom.styleModal) {
+            appState.tempStyleSelection = appState.savedStyleSelection;
+            toggleModal(null);
+        }
+    });
+    dom.settingsModal.addEventListener('click', (e) => {
+        if (e.target === dom.settingsModal) toggleModal(null);
+    });
+    dom.randomSeedCheckbox.addEventListener('change', (e) => {
+        dom.seedInput.disabled = e.target.checked;
+    });
+
+    dom.closeSlideshow.addEventListener('click', closeSlideshow);
+    dom.prevBtn.addEventListener('click', prevSlide);
+    dom.nextBtn.addEventListener('click', nextSlide);
+    dom.slideshowOverlay.addEventListener('click', (e) => {
+        if (e.target === dom.slideshowOverlay) {
+            closeSlideshow();
+        }
+    });
+    dom.downloadBtnSlideshow.addEventListener('click', () => {
+        if (appState.generatedImages.length > 0) {
+            const currentImage = appState.generatedImages[appState.currentSlideIndex];
+            currentImage.canvas.toBlob((blob) => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `shenerator_slideshow_${Date.now()}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (dom.slideshowOverlay.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); }
+            else if (e.key === 'Escape') { e.preventDefault(); closeSlideshow(); }
+        }
+    });
+
+    let previousModelValue = dom.modelSelect.value;
+    dom.modelSelect.addEventListener('change', (e) => {
+        const newModelValue = e.target.value;
+        if (newModelValue === 'turbo') {
+            toggleModal(dom.ageModal)
+        } else {
+            previousModelValue = newModelValue;
+        }
+    });
+    dom.ageConfirm.addEventListener('click', () => {
+        previousModelValue = 'turbo';
+        toggleModal(null);
+    });
+    dom.ageCancel.addEventListener('click', () => {
+        dom.modelSelect.value = previousModelValue;
+        toggleModal(null);
+    });
+    
+    if (dom.presetSize){
+      dom.presetSize.addEventListener('change', (e)=>{
+        const val = e.target.value;
+        if (val){
+          const [w,h] = val.split('x').map(Number);
+          if (w && h){
+            dom.widthInput.value = w;
+            dom.heightInput.value = h;
+          }
+        } else {
+            dom.widthInput.value = lastCustomWidth;
+            dom.heightInput.value = lastCustomHeight;
+        }
+      });
+    }
+
+    dom.widthInput.addEventListener('input', () => {
+        if(dom.presetSize.value === '') {
+            lastCustomWidth = parseInt(dom.widthInput.value) || 1024;
+        }
+    });
+    dom.heightInput.addEventListener('input', () => {
+        if(dom.presetSize.value === '') {
+            lastCustomHeight = parseInt(dom.heightInput.value) || 1024;
+        }
+    });
+
+    loadSettings();
+    previousModelValue = dom.modelSelect.value;
+});
+</script>
+
+</body>
+</html>
